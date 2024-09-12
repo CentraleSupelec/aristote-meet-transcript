@@ -60,12 +60,14 @@ def request_enrichment(url) -> str:
     enrichment_parameters = {
         "generateMetadata": False,
         "generateQuiz": False,
-        "generateNotes": True
+        "generateNotes": True,
+        "aiModel": "Llama-3-70b-Instruct-AWQ",
+        "infrastructure": "CentraleSupélec"
     }
 
     payload = {
         "url": url,
-        "notificationWebhookUrl": f"{WEBHOOK_BASE_URL}/aristote/webhook",
+        "notificationWebhookUrl": f"{WEBHOOK_BASE_URL}/webhook/aristote",
         "enrichmentParameters": enrichment_parameters,
         "endUserIdentifier": ARISTOTE_END_USER_IDENTIFIER,
     }
@@ -83,7 +85,7 @@ def get_enrichment_version(enrichment_id, version_id):
     enrichment_version_response = aristote_api(
         uri=f"enrichments/{enrichment_id}/versions/{version_id}", method="GET"
     )
-
+    print(enrichment_version_response.content)
     if enrichment_version_response.status_code == 200:
         return enrichment_version_response.json()
 
