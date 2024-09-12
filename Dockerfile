@@ -11,4 +11,4 @@ COPY aristote.py \
     meet.py \
     /server_app/
 
-CMD ["flask", "--app=meet", "run", "--host=0.0.0.0"]
+CMD ["python3", "meet.py"]
