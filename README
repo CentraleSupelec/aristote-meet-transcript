@@ -25,24 +25,8 @@ cp -f .env.dist .env
 
 Change environment variables if necessary, particularly fill AristoteAPI credentials (the API Client) and the end-user-identifier to distingues the enrichment requests coming from this project.
 
-## Copy the Ubicast config file
+# Start server
 
 ```
-cp -f config.dist.json config.json
+python3 meet.py
 ```
-
-Fill in API_KEY and CLIENT_ID
-
-# Start server (proxy and webhook)
-
-```
-python3 ubicast.py
-```
-
-# Start Ubicast import
-
-```
-python3 import_videos <channel_oid>
-```
-
-If no channel oid is specified, all videos will be checked againt the database and a request will be sent to AristoteAPI if not already done.
