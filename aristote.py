@@ -2,6 +2,7 @@ import os
 from typing import Literal
 import requests
 import base64
+import json
 
 from dotenv import load_dotenv
 from requests.models import Response
@@ -47,7 +48,7 @@ def aristote_api(
     get_token()
     headers["Authorization"] = "Bearer " + token
     if json:
-        headers["Content-Type"] = "application/json"
+        headers["Accept"] = "application/json"
 
     prefixed_uri = f"{ARISTOTE_API_BASE_URL}/v1/{uri}"
     if method == "GET":
@@ -60,12 +61,14 @@ def request_enrichment(url) -> str:
     enrichment_parameters = {
         "generateMetadata": False,
         "generateQuiz": False,
-        "generateNotes": True
+        "generateNotes": True,
+        "aiModel": "Llama-3-70b-Instruct-AWQ",
+        "infrastructure": "CentraleSupélec"
     }
 
     payload = {
         "url": url,
-        "notificationWebhookUrl": f"{WEBHOOK_BASE_URL}/aristote/webhook",
+        "notificationWebhookUrl": f"{WEBHOOK_BASE_URL}/webhook/aristote",
         "enrichmentParameters": enrichment_parameters,
         "endUserIdentifier": ARISTOTE_END_USER_IDENTIFIER,
     }
@@ -83,9 +86,8 @@ def get_enrichment_version(enrichment_id, version_id):
     enrichment_version_response = aristote_api(
         uri=f"enrichments/{enrichment_id}/versions/{version_id}", method="GET"
     )
-
     if enrichment_version_response.status_code == 200:
-        return enrichment_version_response.json()
+        return json.loads(enrichment_version_response.text)
 
 
 def get_transcript(enrichment_id, version_id, language: str = None):
