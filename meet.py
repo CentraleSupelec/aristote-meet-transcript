@@ -97,9 +97,22 @@ def minio_webhook():
     return ""
 
 
+@app.route("/test", methods=["GET"])
+def test():
+    enrichment_version = get_enrichment_version(
+        "0191e6c7-df48-7848-9440-2fbb0b54d33e", "0191e6db-4e52-70e1-a295-8dd522a536dc"
+    )
+
+    enrichment_version = get_enrichment_version(
+        "0191e6e3-fe45-7ab1-879f-8b76a489d29c", "0191e6e4-4f5c-7bcc-a616-fb7da27cef3e"
+    )
+    return ""
+
+
 @app.route("/webhook/aristote", methods=["POST"])
 def aristote_webhook():
     data = request.get_json()
+    print(data)
 
     enrichment_id = data["id"]
     conn = sqlite3.connect(DATABASE_URL)
@@ -121,7 +134,8 @@ def aristote_webhook():
             print(enrichment_version["notes"])
             json = {
                 "transcript": enrichment_version["transcript"]["text"],
-                "summary": enrichment_version["notes"]
+                "summary": enrichment_version["notes"],
+                "secret": MEET_SECRET
             }
 
             print(json)
