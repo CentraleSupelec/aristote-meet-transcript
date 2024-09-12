@@ -10,7 +10,6 @@ from minio import Minio
 load_dotenv(".env")
 
 DATABASE_URL = os.environ["DATABASE_URL"]
-CONFIG_FILE = os.environ["CONFIG_FILE"]
 
 MINIO_ACCESS_KEY = os.environ["MINIO_ACCESS_KEY"]
 MINIO_SECRET_KEY = os.environ["MINIO_SECRET_KEY"]
