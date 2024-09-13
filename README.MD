@@ -1,6 +1,6 @@
 # Aristote Meet Transcript
 
-This project was completed in a few hours during the "100days Challenge" hackathon on 9/12/24 and aims to retrieve the audio file of an Meet meeting, send out the transcript, and email it with an audio summary.
+This project was completed in a few hours during the "100days Challenge" hackathon on September 12th, 2024 and aims to retrieve the audio file of an Meet meeting, send out the transcript, and email it with an audio summary.
 
 - Generating transcript and summary using Aristotle API
 - By sending it to the backend of Meet, which will generate an email for each participant
